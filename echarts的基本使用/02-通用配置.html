@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+    <script>
+      let myCharts = echarts.init(document.querySelector('div'));
+      let xArray = ['张三', '李四', '王五', '但是', '双方', 'good'];
+      let yArray1 = [60, 70, 80, 60, 70, 85];
+      let yArray2 = [40, 76, 81, 63, 90, 83];
+      let option = {
+        title: {
+          text: '成绩单',
+          textStyle: {
+            color: 'red',
+          },
+          left: 300,
+          top: 50,
+        },
+        tooltip: {
+          trigger: 'axis',
+          triggerOn: 'click',
+          // formatter: '{b}的成绩是{c}',
+          formatter: function (arg) {
+            console.log(arg);
+            return arg[0].name + '的分数是' + arg[0].value;
+          },
+        },
+        //工具栏
+        toolbox: {
+          feature: {
+            saveAsImage: {}, //导出图片功能
+            dataView: {}, //数据视图
+            restore: {}, //重置
+            dataZoom: {}, //区域缩放
+            magicType: {
+              type: ['bar', 'line'],
+            },
+          },
+        },
+        legend: {
+          data: ['语文', '数学'],
+        },
+        xAxis: {
+          type: 'category',
+          data: xArray,
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            name: '语文',
+            type: 'bar',
+            markPoint: {
+              data: [
+                {
+                  type: 'max',
+                },
+                {
+                  type: 'min',
+                },
+              ],
+            },
+            markLine: {
+              data: [
+                {
+                  name: '平均线',
+                  // 支持 'average', 'min', 'max'
+                  type: 'average',
+                },
+              ],
+            },
+            label: {
+              show: true,
+              rotate: 60,
+              position: 'top',
+            },
+            barWidth: '30%',
+            data: yArray1,
+          },
+          {
+            name: '数学',
+            type: 'bar',
+            data: yArray2,
+          },
+        ],
+      };
+      myCharts.setOption(option);
+    </script>
+  </body>
+</html>

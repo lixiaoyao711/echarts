@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="height: 400px; height: 600px"></div>
+    <script>
+      let mCharts = echarts.init(document.querySelector('div'));
+      let xDataArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+      let yDateArr = [3000, 2000, 1500, 1200, 450, 700, 900, 6000, 2500, 4700, 7600, 3600];
+      let option = {
+        xAxis: {
+          type: 'category',
+          data: xDataArr,
+          boundaryGap: false,
+        },
+        yAxis: {
+          type: 'value',
+          scale: true,
+        },
+        series: [
+          {
+            name: '康师傅',
+            data: yDateArr,
+            // 标注最大值,最小值
+            markPoint: {
+              data: [
+                {
+                  type: 'max',
+                  name: '最大值',
+                },
+                {
+                  type: 'min',
+                  name: '最小值',
+                },
+              ],
+            },
+            // 平均值
+            markLine: {
+              data: [
+                {
+                  type: 'average',
+                },
+              ],
+            },
+            // 标注区间
+            markArea: {
+              data: [
+                [{ xAxis: '1' }, { xAxis: '2' }],
+                [{ xAxis: '7' }, { xAxis: '8' }],
+              ],
+            },
+            // 线条控制
+            lineStyle: {
+              color: 'red',
+              type: 'dotted',
+            },
+            smooth: true,
+            type: 'line',
+            // 填充风格
+            areaStyle: {
+              color: 'pink',
+            },
+          },
+        ],
+      };
+      mCharts.setOption(option);
+    </script>
+  </body>
+</html>

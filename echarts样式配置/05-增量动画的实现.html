@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/echarts-new.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+    <button id="edit-data">修改数据</button>
+    <button id="add-data">增加数据</button>
+    <script>
+      let myCharts = echarts.init(document.querySelector('div'));
+      let xArray = ['张三', '李四', '王五', '但是', '双方', 'good'];
+      let yArray = [60, 70, 80, 60, 70, 85];
+      let option = {
+        yAxis: {
+          type: 'value',
+        },
+        xAxis: {
+          type: 'category',
+          data: xArray,
+        },
+        series: [
+          {
+            name: '语文',
+            type: 'bar',
+            markPoint: {
+              data: [
+                {
+                  type: 'max',
+                },
+                {
+                  type: 'min',
+                },
+              ],
+            },
+
+            label: {
+              show: true,
+              rotate: 60,
+            },
+            barWidth: '50%',
+            itemStyle: {
+              // color: {
+              //   type: 'linear', //线性渐变
+              //   x: 0,
+              //   y: 0,
+              //   x2: 0,
+              //   y2: 1,
+              //   colorStops: [
+              //     {
+              //       offset: 0,
+              //       color: 'red',
+              //     },
+              //     {
+              //       offset: 1,
+              //       color: 'blue',
+              //     },
+              //   ],
+              // },
+              color: {
+                type: 'radial', //镜像渐变
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: 'red',
+                  },
+                  {
+                    offset: 1,
+                    color: 'blue',
+                  },
+                ],
+              },
+            },
+            data: yArray,
+            // 显示线条背景
+            showBackground: true,
+            // 背景的样式
+            backgroundStyle: {
+              color: 'rgba(180, 180, 180, 0.2)',
+              borderRadius: 30,
+            },
+          },
+        ],
+      };
+      myCharts.setOption(option);
+      let editData = document.querySelector('#edit-data');
+      let addData = document.querySelector('#add-data');
+      let newYarry = [30, 90, 50, 70, 70, 85];
+
+      editData.onclick = function () {
+        let option = {
+          series: [
+            {
+              data: newYarry,
+            },
+          ],
+        };
+        myCharts.setOption(option);
+      };
+      addData.onclick = () => {
+        xArray.push('李永富'), yArray.push(100);
+        myCharts.setOption(option);
+      };
+    </script>
+  </body>
+</html>

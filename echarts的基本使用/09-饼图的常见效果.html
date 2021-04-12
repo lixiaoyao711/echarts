@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+    <script>
+      let myCharts = echarts.init(document.querySelector('div'));
+      // pieData就是需要设置给饼图的数据, 数组,数组中包含一个又一个的对象, 每一个对象中, 需要有name和value
+      let pieData = [
+        {
+          name: '淘宝',
+          value: 11231,
+        },
+        {
+          name: '京东',
+          value: 22673,
+        },
+        {
+          name: '唯品会',
+          value: 6123,
+        },
+        {
+          name: '1号店',
+          value: 8989,
+        },
+        {
+          name: '聚美优品',
+          value: 6700,
+        },
+      ];
+      let option = {
+        series: [
+          {
+            type: 'pie',
+            data: pieData,
+            label: {
+              show: true,
+              formatter: function (val) {
+                console.log(val);
+                return `${val.name}花费了${val.value}元
+${val.percent}%`;
+              },
+            },
+            radius: '20%', // 百分比参照 宽度高度中较小的一半
+            radius: ['50%', '75%'], //第0个元素代表内圆半径,第1个元素代表外园半径
+            // roseType: 'radius', //南丁格尔图, 饼图的每个区域半径不同,会随着数值的大小变化
+            // selectedMode: 'single', //选中的区域会偏移一小段距离
+            selectedMode: 'multiple', //选中的多个区域会偏移一小段距离
+            selectedOffset: 30, //设置的距离
+          },
+        ],
+      };
+      myCharts.setOption(option);
+    </script>
+  </body>
+</html>

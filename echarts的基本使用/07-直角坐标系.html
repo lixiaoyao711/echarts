@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+    <script>
+      let myCharts = echarts.init(document.querySelector('div'));
+      let xArray = ['张三', '李四', '王五', '但是', '双方', 'good'];
+      let yArray = [60, 70, 80, 60, 70, 85];
+      let option = {
+        dataZoom: [
+          {
+            type: 'slider',
+            // type: 'inside',
+            xAxisIndex: 0,
+          },
+          {
+            type: 'slider',
+            // type: 'inside',
+            yAxisIndex: 0,
+            start: 0,
+            end: 80,
+          },
+        ],
+        toolbox: {
+          feature: {
+            dataZoom: {},
+          },
+        },
+        grid: {
+          show: true,
+          borderWidth: 10,
+          borderColor: 'red',
+          top: 120,
+          left: 120,
+          width: 300,
+          height: 200,
+        },
+        xAxis: {
+          type: 'category',
+          data: xArray,
+          position: 'top',
+        },
+        yAxis: {
+          type: 'value',
+          position: 'right',
+        },
+        series: [
+          {
+            name: '语文',
+            type: 'bar',
+            markPoint: {
+              data: [
+                {
+                  type: 'max',
+                },
+                {
+                  type: 'min',
+                },
+              ],
+            },
+            markLine: {
+              data: [
+                {
+                  name: '平均线',
+                  // 支持 'average', 'min', 'max'
+                  type: 'average',
+                },
+              ],
+            },
+            label: {
+              show: true,
+              rotate: 60,
+              position: 'top',
+            },
+            barWidth: '30%',
+            data: yArray,
+          },
+        ],
+      };
+      myCharts.setOption(option);
+    </script>
+  </body>
+</html>

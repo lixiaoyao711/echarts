@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../js/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+    <script>
+      let myCharts = echarts.init(document.querySelector('div'));
+      // pieData就是需要设置给饼图的数据, 数组,数组中包含一个又一个的对象, 每一个对象中, 需要有name和value
+      let pieData = [
+        {
+          name: '淘宝',
+          value: 11231,
+          itemStyle: {
+            //控制某一个选项的样式
+            color: 'yellow',
+          },
+        },
+        {
+          name: '京东',
+          value: 22673,
+        },
+        {
+          name: '唯品会',
+          value: 6123,
+        },
+        {
+          name: '1号店',
+          value: 8989,
+        },
+      ];
+      let option = {
+        color: [
+          'rgba(86, 191, 253, 1)',
+          'rgba(83, 222, 196, 1)',
+          'rgba(247, 115, 146, 1)',
+          'rgba(83, 222, 196, 1)',
+          '#76c0de',
+          '#3ba272',
+          '#fc8452',
+          '#9a60b4',
+          '#ea7ccc',
+        ],
+        title: {
+          textStyle: {
+            color: 'blue',
+          },
+        },
+        series: [
+          {
+            type: 'pie',
+            data: pieData,
+            radius: 20,
+            radius: ['50%', '70%'],
+          },
+        ],
+      };
+      myCharts.setOption(option);
+    </script>
+  </body>
+</html>

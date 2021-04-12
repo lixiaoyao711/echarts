@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+    <script>
+      let myCharts = echarts.init(document.querySelector('div'));
+      let xArray = ['张三', '李四', '王五', '但是', '双方', 'good'];
+      let yArray = [60, 70, 80, 60, 70, 85];
+      let option = {
+        xAxis: {
+          type: 'value',
+        },
+        yAxis: {
+          type: 'category',
+          data: xArray,
+        },
+        series: [
+          {
+            name: '语文',
+            type: 'bar',
+            markPoint: {
+              data: [
+                {
+                  type: 'max',
+                },
+                {
+                  type: 'min',
+                },
+              ],
+            },
+            // markLine: {
+            //   data: [
+            //     {
+            //       name: '平均线',
+            //       // 支持 'average', 'min', 'max'
+            //       type: 'average',
+            //     },
+            //   ],
+            // },
+            label: {
+              show: true,
+              rotate: 60,
+              // position: 'top',
+            },
+            barWidth: '50%',
+            itemStyle: {
+              color: 'rgb(38, 183, 255)',
+              borderRadius: 30,
+            },
+            data: yArray,
+            // 显示线条背景
+            showBackground: true,
+            // 背景的样式
+            backgroundStyle: {
+              color: 'rgba(180, 180, 180, 0.2)',
+              borderRadius: 30,
+            },
+          },
+        ],
+      };
+      myCharts.setOption(option);
+    </script>
+  </body>
+</html>

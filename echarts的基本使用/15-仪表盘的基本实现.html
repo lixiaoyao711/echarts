@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/echarts.min.js"></script>
+  </head>
+  <body>
+    <div style="width: 600px; height: 400px"></div>
+    <script>
+      //1. ECharts最基本的代码结构
+      //2. 准备数据, 设置给series下的data
+      //3. 将type的值设置为gauge
+      let myCharts = echarts.init(document.querySelector('div'));
+      let option = {
+        series: [
+          {
+            type: 'gauge',
+            data: [
+              {
+                value: 97,
+                itemStyle: {
+                  color: 'pink',
+                },
+              },
+              {
+                value: 85,
+                itemStyle: {
+                  color: 'yellow',
+                },
+              },
+            ], //每一个对象代表一个指针]
+            min: 50,
+            // max: 100,
+          },
+        ],
+      };
+      myCharts.setOption(option);
+    </script>
+  </body>
+</html>
