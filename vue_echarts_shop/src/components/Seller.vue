@@ -40,7 +40,7 @@ export default {
     //方法
     methods: {
         initChart() {
-            this.mChart = this.$charts.init(this.$refs.chart);
+            this.mChart = this.$charts.init(this.$refs.chart, 'chalk');
 
             this.mChart.on('mouseover', () => {
                 clearInterval(this.timerID);
@@ -75,6 +75,21 @@ export default {
             });
 
             let optino = {
+                title: {
+                    text: '商家销售统计',
+                    textStyle: {
+                        fontSize: 66,
+                    },
+                    left: 20,
+                    top: 20,
+                },
+                grid: {
+                    top: '20%',
+                    left: '3%',
+                    right: '6%',
+                    bottom: '3%',
+                    containLabel: true, //是否包含文字
+                },
                 xAxis: {
                     type: 'value',
                 },
@@ -82,10 +97,36 @@ export default {
                     type: 'category',
                     data: name,
                 },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        z: 0,
+                        type: 'line',
+                        lineStyle: {
+                            width: 66,
+                            color: '#2d3443',
+                        },
+                    },
+                },
                 series: [
                     {
                         type: 'bar',
                         data: value,
+                        barWidth: 56,
+                        label: {
+                            show: true,
+                            position: 'right',
+                            textStyle: {
+                                color: '#fff',
+                            },
+                        },
+                        itemStyle: {
+                            barBorderRadius: [0, 33, 33, 0],
+                            color: new this.$charts.graphic.LinearGradient(0, 0, 1, 0, [
+                                { offset: 0, color: '#5052EE' },
+                                { offset: 0, color: '#AB6EE5' },
+                            ]),
+                        },
                     },
                 ],
             };
