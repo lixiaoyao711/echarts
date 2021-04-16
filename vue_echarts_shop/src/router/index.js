@@ -9,6 +9,10 @@ const routes = [
         path: '/sellerpage',
         component: SellerPage,
     },
+    {
+        path: '/linepage',
+        component: () => import('../views/LinePage.vue'),
+    },
 ];
 
 const router = new VueRouter({

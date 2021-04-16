@@ -29,11 +29,12 @@ export default {
         this.initChart();
 
         this.getData();
-
-        // this.updataChart();
+        window.addEventListener('resize', this.resizeFunc);
+        this.resizeFunc();
     },
     destroyed() {
         clearInterval(this.timerID);
+        window.removeEventListener('resize', this.resizeFunc);
     },
     //监听
     watch: {},
@@ -41,45 +42,10 @@ export default {
     methods: {
         initChart() {
             this.mChart = this.$charts.init(this.$refs.chart, 'chalk');
-
-            this.mChart.on('mouseover', () => {
-                clearInterval(this.timerID);
-            });
-            this.mChart.on('mouseout', () => {
-                this.startInterval();
-            });
-        },
-        async getData() {
-            const { data: res } = await this.$http.get('seller');
-            this.allData = res;
-            this.allData.sort((a, b) => {
-                return a.value - b.value;
-            });
-            this.totalPage =
-                this.allData.length % 5 === 0
-                    ? this.allData.length / 5
-                    : this.allData.length / 5 + 1;
-
-            this.updataChart();
-            this.startInterval();
-        },
-        updataChart() {
-            const start = (this.currentPage - 1) * 5;
-            const end = this.currentPage * 5;
-            const showData = this.allData.slice(start, end);
-            const name = showData.map(item => {
-                return item.name;
-            });
-            const value = showData.map(item => {
-                return item.value;
-            });
-
-            let optino = {
+            // 图标初始化配置
+            let initOption = {
                 title: {
                     text: '商家销售统计',
-                    textStyle: {
-                        fontSize: 66,
-                    },
                     left: 20,
                     top: 20,
                 },
@@ -95,7 +61,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: name,
+                    // data: name,
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -103,7 +69,6 @@ export default {
                         z: 0,
                         type: 'line',
                         lineStyle: {
-                            width: 66,
                             color: '#2d3443',
                         },
                     },
@@ -111,8 +76,7 @@ export default {
                 series: [
                     {
                         type: 'bar',
-                        data: value,
-                        barWidth: 56,
+                        // data: value,
                         label: {
                             show: true,
                             position: 'right',
@@ -121,7 +85,8 @@ export default {
                             },
                         },
                         itemStyle: {
-                            barBorderRadius: [0, 33, 33, 0],
+                            barBorderRadius: [0, 60, 60, 0],
+
                             color: new this.$charts.graphic.LinearGradient(0, 0, 1, 0, [
                                 { offset: 0, color: '#5052EE' },
                                 { offset: 0, color: '#AB6EE5' },
@@ -130,7 +95,47 @@ export default {
                     },
                 ],
             };
-            this.mChart.setOption(optino);
+            this.mChart.setOption(initOption);
+            this.mChart.on('mouseover', () => {
+                clearInterval(this.timerID);
+            });
+            this.mChart.on('mouseout', () => {
+                this.startInterval();
+            });
+        },
+        async getData() {
+            const { data: res } = await this.$http.get('seller');
+            this.allData = res;
+            this.allData.sort((a, b) => {
+                return a.value - b.value;
+            });
+            this.totalPage = this.allData.length % 5 === 0 ? this.allData.length / 5 : this.allData.length / 5 + 1;
+
+            this.updataChart();
+            this.startInterval();
+        },
+        updataChart() {
+            const start = (this.currentPage - 1) * 5;
+            const end = this.currentPage * 5;
+            const showData = this.allData.slice(start, end);
+            const name = showData.map(item => {
+                return item.name;
+            });
+            const value = showData.map(item => {
+                return item.value;
+            });
+            // 初始化data
+            let dataOptino = {
+                yAxis: {
+                    data: name,
+                },
+                series: [
+                    {
+                        data: value,
+                    },
+                ],
+            };
+            this.mChart.setOption(dataOptino);
         },
         startInterval() {
             this.timerID ? clearInterval(this.timerID) : '';
@@ -141,6 +146,31 @@ export default {
                 }
                 this.updataChart();
             }, 3000);
+        },
+        resizeFunc() {
+            const titleFontSize = (this.$refs.chart.offsetWidth / 100) * 3.6;
+            console.log(titleFontSize / 2);
+            let updataOption = {
+                title: {
+                    textStyle: {
+                        fontSize: titleFontSize,
+                    },
+                    tooltip: {
+                        axisPointer: {
+                            lineStyle: {
+                                width: titleFontSize,
+                            },
+                        },
+                    },
+                    series: [
+                        {
+                            barWidth: titleFontSize,
+                        },
+                    ],
+                },
+            };
+            this.mChart.setOption(updataOption);
+            this.mChart.resize();
         },
     },
 };

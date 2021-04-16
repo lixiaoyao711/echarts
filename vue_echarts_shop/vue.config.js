@@ -3,4 +3,6 @@ module.exports = {
         port: 8889,
         open: true,
     },
+
+    lintOnSave: false
 };
