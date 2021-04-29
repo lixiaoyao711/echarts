@@ -37,8 +37,31 @@ export default {
     //方法
     methods: {
         initChart() {
-            this.chart = this.$charts.init(this.$refs.chart);
-            let initOption = {};
+            this.chart = this.$charts.init(this.$refs.chart, 'chalk');
+            let initOption = {
+                grid: {
+                    left: '3%',
+                    top: '35%',
+                    right: '4%',
+                    buttom: '1%',
+                    containLabel: true,
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                legend: {
+                    left: 20,
+                    top: '15%',
+                    icon: 'circle',
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                },
+                yAxis: {
+                    type: 'value',
+                },
+            };
             this.chart.setOption(initOption);
         },
         async getData() {
@@ -52,7 +75,28 @@ export default {
             let timeArr = this.allData.common.month;
             // y的数据
             let valueArr = this.allData.map.data;
-            let dataOption = {};
+            let seriesArr = valueArr.map(item => {
+                return {
+                    name: item.name,
+                    type: 'line',
+                    data: item.data,
+                    stack: 'map',
+                    areaStyle: {},
+                };
+            });
+            //图里的数据
+            const legendArr = valueArr.map(item => {
+                return item.name;
+            });
+            let dataOption = {
+                xAxis: {
+                    data: timeArr,
+                },
+                legend: {
+                    data: legendArr,
+                },
+                series: seriesArr,
+            };
             this.chart.setOption(dataOption);
         },
         resizeFunc() {
