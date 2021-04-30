@@ -24,6 +24,10 @@ const routes = [
         path: '/mappage',
         component: () => import('../views/MapPage.vue'),
     },
+    {
+        path: '/rankpage',
+        component: () => import('../views/RankPage.vue'),
+    },
 ];
 
 const router = new VueRouter({
