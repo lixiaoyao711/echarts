@@ -149,7 +149,6 @@ export default {
         },
         resizeFunc() {
             const titleFontSize = (this.$refs.chart.offsetWidth / 100) * 3.6;
-            console.log(titleFontSize / 2);
             let updataOption = {
                 title: {
                     textStyle: {

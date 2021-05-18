@@ -28,6 +28,10 @@ const routes = [
         path: '/rankpage',
         component: () => import('../views/RankPage.vue'),
     },
+    {
+        path: '/stockpage',
+        component: () => import('../views/StockPage.vue'),
+    },
 ];
 
 const router = new VueRouter({
