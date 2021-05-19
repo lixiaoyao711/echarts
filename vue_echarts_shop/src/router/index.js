@@ -32,6 +32,10 @@ const routes = [
         path: '/hotpage',
         component: () => import('../views/HotPage.vue'),
     },
+    {
+        path: '/stockpage',
+        component: () => import('../views/StockPage.vue'),
+    },
 ];
 
 const router = new VueRouter({
