@@ -34,7 +34,15 @@
             }
         }
         send.onclick = function () {
-            ws.send('hello socket from 后-前')
+            // ws.send('hello socket from 后-前')
+            ws.send(JSON.stringify(
+                {
+                    action:'',
+                    socketType:'',
+                    chartName:'',
+                    value:''
+                }
+            ))
         }
     </script>
 </br>
