@@ -28,6 +28,10 @@ const routes = [
         path: '/rankpage',
         component: () => import('../views/RankPage.vue'),
     },
+    {
+        path: '/hotpage',
+        component: () => import('../views/HotPage.vue'),
+    },
 ];
 
 const router = new VueRouter({

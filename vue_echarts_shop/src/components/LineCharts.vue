@@ -121,18 +121,12 @@ export default {
             // x的数据
             let timeArr = this.allData.common.month;
             // y的数据
-<<<<<<< HEAD
             let valueArr = this.allData[this.showType].data;
             let seriesArr = valueArr.map((item, index) => {
-=======
-            let valueArr = this.allData.map.data;
-            let seriesArr = valueArr.map(item => {
->>>>>>> 96eb8ea0f52a6d3d1c4cbfc644b525ee99b84d5b
                 return {
                     name: item.name,
                     type: 'line',
                     data: item.data,
-<<<<<<< HEAD
                     stack: this.showType,
                     areaStyle: {
                         color: new this.$charts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -150,14 +144,6 @@ export default {
             });
             // 图例的数据
             let legenArr = valueArr.map(item => {
-=======
-                    stack: 'map',
-                    areaStyle: {},
-                };
-            });
-            //图里的数据
-            const legendArr = valueArr.map(item => {
->>>>>>> 96eb8ea0f52a6d3d1c4cbfc644b525ee99b84d5b
                 return item.name;
             });
             let dataOption = {
@@ -165,11 +151,7 @@ export default {
                     data: timeArr,
                 },
                 legend: {
-<<<<<<< HEAD
                     data: legenArr,
-=======
-                    data: legendArr,
->>>>>>> 96eb8ea0f52a6d3d1c4cbfc644b525ee99b84d5b
                 },
                 series: seriesArr,
             };
