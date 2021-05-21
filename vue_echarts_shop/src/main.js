@@ -6,6 +6,9 @@ import * as echarts from 'echarts';
 import axios from 'axios';
 import chalk from '../public/static/theme/chalk.js';
 
+import SocktService from './utils/socket_service';
+SocktService.Instance.connect();
+
 import './assets/css/global.css';
 
 chalk;
